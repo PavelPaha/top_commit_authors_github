@@ -121,11 +121,13 @@ class GitHunterSync:
 def check_solutions(org_names):
     global token
     for org in org_names:
-        hunter_sync = GitHunterSync(token, org)
-        top_commit_authors_sync = hunter_sync.gather_data()
 
         hunter_async = GitHunterAsync(token, org)
         top_commit_authors_async = asyncio.run(hunter_async.gather_data())
+
+        hunter_sync = GitHunterSync(token, org)
+        top_commit_authors_sync = hunter_sync.gather_data()
+
 
         if len(top_commit_authors_async) != len(top_commit_authors_sync):
             print("Не равные длины")
@@ -144,7 +146,7 @@ def check_solutions(org_names):
     print("OK")
     return True
 
-token = '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'
+token = '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'
 
 check_solutions(['naumen'])
 # hunter_async = GitHunterAsync(token, 'naumen')
